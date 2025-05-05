@@ -31,7 +31,7 @@ export default function Home() {
               <>
                 <div className="flex items-center gap-3">
                   <Image src={assets.logo_icon} alt="logo_icon" className="h-16"></Image>
-                  <p className="text-2xl font-medium">Hi, I'm DeepSeek</p>
+                  <p className="text-2xl font-medium">Hi, I&lsquo;m DeepSeek</p>
                 </div>
                 <p className="text-sm mt-2"> How can I help you today?</p>
               </>
