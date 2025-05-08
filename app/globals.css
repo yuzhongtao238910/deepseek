@@ -21,3 +21,14 @@ html {
 }
 
 
+
+
+
+code {
+  white-space: pre-wrap !important;
+}
+
+
+pre {
+  border-radius:  10px !important;
+}

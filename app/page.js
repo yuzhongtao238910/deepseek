@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar"
 import PromptBox from "@/components/PromptBox"
 import Message from "@/components/Message"
 import { useAppContext } from "@/context/AppContext"
+import { useEffect, useRef } from "react"
 
 export default function Home() {
 

@@ -50,12 +50,14 @@ export default function PromptBox({
                 return chat
             }))
 
-            setSelectedChat((prev) => ({
+            setSelectedChat((prev) => {
+
+                debugger
                 return {
                     ...prev,
                     messages: [...prev.messages, userPrompt]
                 }
-            }))
+            })
 
             const { data } = await axios.post("/api/chat/ai", {
                 chatId: selectedChat._id,
@@ -129,7 +131,7 @@ export default function PromptBox({
     }
 
     return (
-        <form className={`w-full ${false ? 'max-w-3xl' : 'max-w-2xl'} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}
+        <form className={`w-full ${selectedChat.messages.length > 0 ? 'max-w-3xl' : 'max-w-2xl'} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}
             onSubmit={sendPrompt}
         >
             <textarea
