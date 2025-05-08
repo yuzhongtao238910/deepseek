@@ -11,7 +11,7 @@ export default function Sidebar({
 
     const { openSignIn } = useClerk()
 
-    const { user } = useAppContext()
+    const { user, chats, createNewChat } = useAppContext()
 
     const [openMenu, setOpenMenu] = useState({
         id: 0,
@@ -42,7 +42,7 @@ export default function Sidebar({
                         </div>
                     </div>
                 </div>
-                <button className={`mt-8 flex items-center justify-center cursor-pointer ${
+                <button onClick={createNewChat}  className={`mt-8 flex items-center justify-center cursor-pointer ${
                     expand ? "bg-primary hover:opacity-90 rounded-2xl gap-2 p-2.5 w-max" : "group relative h-9 w-9 mx-auto hover:bg-gray-5000/30 rounded-lg"
                 }`}>
                     <Image className={expand ? 'w-6' : 'w-7'} src={expand ? assets.chat_icon : assets.chat_icon_dull} alt={expand ? "chat_icon" : "chat_icon_dull"}></Image>
@@ -57,7 +57,13 @@ export default function Sidebar({
                 <div className={`mt-8 text-white/25 text-sm ${expand ? 'block' : 'hidden'}`}>
                     <p className="my-1">Recents</p>
                     {/* chatLabel */}
-                    <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu}></ChatLabel>
+                    {
+                        chats.map((chat, index) => {
+
+                            return (<ChatLabel key={index} name={chat.name} id={chat._id} openMenu={openMenu} setOpenMenu={setOpenMenu}  ></ChatLabel>)
+                        })
+                    }
+                    
                 </div>
             </div>
             <div>

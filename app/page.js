@@ -25,7 +25,9 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedChat) {
-      setMessages(selectedChat.messages)
+
+      console.log(selectedChat, 2999)
+      setMessages(selectedChat.message)
     }
   }, [selectedChat])
 
@@ -52,7 +54,7 @@ export default function Home() {
           </div>
 
           {
-            messages.length === 0 ? (
+            messages?.length === 0 ? (
               <>
                 <div className="flex items-center gap-3">
                   <Image src={assets.logo_icon} alt="logo_icon" className="h-16"></Image>
@@ -69,7 +71,7 @@ export default function Home() {
                 }
               </p>
               {
-                messages.map((message, index) => {
+                messages?.map((message, index) => {
                   return <Message key={index} role={message.role} content={message.content}></Message>
                 })
               }

@@ -9,7 +9,7 @@ import Chat from "@/models/Chat";
 import connectDB from "@/config/db";
 const openai = new OpenAI({
     baseURL: 'https://api.deepseek.com',
-    apiKey: process.env.DEEKSKEE_API_KEY
+    apiKey: process.env.DEEPSEEK_API_KEY
 });
 
 
@@ -45,7 +45,9 @@ export async function POST(req) {
             timestamp: Date.now()
         }
 
-        data.messages.push(userPrompt)
+        data.message.push(userPrompt)
+
+        
 
         const completion = await openai.chat.completions.create({
             messages: [{ role: "user", content: prompt }],
@@ -53,12 +55,16 @@ export async function POST(req) {
             store: true
         });
 
-        const message = completion.choices[0].message.content
+        
+
+        const message = completion.choices[0].message
 
         message.timestamp = Date.now()
 
 
-        data.messages.push(message)
+        data.message.push(message)
+
+        console.log(message, 67)
 
         await data.save()
 

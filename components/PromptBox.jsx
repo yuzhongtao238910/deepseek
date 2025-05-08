@@ -19,6 +19,10 @@ export default function PromptBox({
     const sendPrompt = async (e) => {
         const promptCopy = prompt
 
+        console.log(chats, selectedChat)
+
+        
+
         try {
             e.preventDefault()
 
@@ -44,7 +48,7 @@ export default function PromptBox({
                 if (chat._id === selectedChat._id) {
                     return {
                         ...chat,
-                        messages: [...chat.messages, userPrompt]
+                        message: [...chat.message, userPrompt]
                     }
                 }
                 return chat
@@ -52,10 +56,10 @@ export default function PromptBox({
 
             setSelectedChat((prev) => {
 
-                debugger
+                
                 return {
                     ...prev,
-                    messages: [...prev.messages, userPrompt]
+                    message: [...prev.message, userPrompt]
                 }
             })
 
@@ -64,12 +68,17 @@ export default function PromptBox({
                 prompt
             })
 
+            console.log(data)
+            // debugger
+
             if (data.success) {
                 setChats((prevChats) => prevChats.map((chat) => {
+
+
                     if (chat._id === selectedChat._id) {
                         return {
                             ...chat,
-                            messages: [...chat.messages, data.data]
+                            message: [...chat.message, data.data]
                         }
                     }
                     return chat
@@ -89,7 +98,7 @@ export default function PromptBox({
 
                 setSelectedChat((prev) => ({
                     ...prev,
-                    messages: [...prev.messages, assistantMessage]
+                    message: [...prev.message, assistantMessage]
                 }))
 
                 for (let i = 0; i < messageTokens.length; i++) {
@@ -97,13 +106,13 @@ export default function PromptBox({
                         assistantMessage.content += messageTokens.slice(0, i + 1).join(" ")
                         setSelectedChat((prev) => {
                             const updatedMessages = [
-                                ...prev.messages.slice(0, -1),
+                                ...prev.message.slice(0, -1),
                                 assistantMessage
                             ]
 
                             return {
                                 ...prev,
-                                messages: updatedMessages
+                                message: updatedMessages
                             }
                         })
                     }, i * 100)
@@ -131,7 +140,7 @@ export default function PromptBox({
     }
 
     return (
-        <form className={`w-full ${selectedChat.messages.length > 0 ? 'max-w-3xl' : 'max-w-2xl'} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}
+        <form className={`w-full ${selectedChat?.messages?.length > 0 ? 'max-w-3xl' : 'max-w-2xl'} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}
             onSubmit={sendPrompt}
         >
             <textarea

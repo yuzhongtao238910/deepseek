@@ -20,7 +20,9 @@ export const AppContextProvider = ({children}) => {
 
     const [chats, setChats] = useState([])
 
-    const [selectedChat, setSelectedChat] = useState(null)
+    const [selectedChat, setSelectedChat] = useState({
+        messages: []
+    })
 
     const createNewChat = async () => {
         try {
