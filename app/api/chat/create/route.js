@@ -1,4 +1,4 @@
-import { Webhook } from "svix";
+
 import connectDB from "@/config/db";
 import Chat from "@/models/Chat";
 import { getAuth } from "@clerk/nextjs/server";
@@ -14,10 +14,11 @@ export async function POST(req) {
         if (!userId) {
             return NextResponse.json({
                 success: false,
-                messgae: "User noe authentiocated"
+                messgae: "User noe authenticated"
             })
         }
 
+        // Prepare the chat data to be saved in the database
         const chatData = {
             userId,
             messages: [],
@@ -38,7 +39,7 @@ export async function POST(req) {
     } catch(error) {
         return NextResponse.json({
             success: false,
-            message: error.message
+            error: error.message
         })
     }
 
