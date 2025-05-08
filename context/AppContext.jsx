@@ -36,6 +36,9 @@ export const AppContextProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             })
+
+
+            fetchUserChats()
         } catch(error) {
             toast.error(error.message)
         }
@@ -57,6 +60,16 @@ export const AppContextProvider = ({children}) => {
 
                 if (data.data.length === 0) {
                     await createNewChat()
+
+                    return fetchUserChats()
+                } else {
+                    data.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+
+                    // set recently updated chat as a selected chat
+                    setSelectedChat(data.data[0])
+
+
+                    console.log(data.data[0])
                 }
 
             } else {
@@ -67,8 +80,20 @@ export const AppContextProvider = ({children}) => {
         }
     }
 
+    useEffect(() => {
+        if (user) {
+            fetchUserChats()
+        }
+    }, [user])
+
     const value = {
-        user
+        user,
+        chats,
+        setChats,
+        selectedChat,
+        setSelectedChat,
+        fetchUserChats,
+        createNewChat
     }
     return (
         <AppContext.Provider value={value}>
