@@ -22,6 +22,20 @@ export default function RootLayout({ children }) {
           <body
             className={`${inter.className} antialiased`}
           >
+            <Toaster toastOptions={{
+              success: {
+                style: {
+                  background: "black",
+                  color: "white",
+                }
+              },
+              error: {
+                style: {
+                  background: "black",
+                  color: "white",
+                }
+              }
+            }} />
             {children}
           </body>
         </html>
